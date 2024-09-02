@@ -47,19 +47,56 @@ public class ParenthesisChecker {
     * @throws ParenthesesException if the parentheses did not match as intended.
     * @throws StackAllocationException If the stack cannot be allocated or reallocated if necessary.
     */
-    public static int checkParentheses(StackInterface<Character> stack, String fromString) throws ParenthesesException {
-      // TODO:
-      // for each character in the input string
-      //   if character is an opening parenthesis -- one of "([{"
-      //      push it into the stack (check for failure and throw an exception if so)
-      //   else if character is a closing parenthesis -- one of ")]}"
-      //      pop the latest opening parenthesis from the stack
-      //      if the popped item is null
-      //         throw an exception, there are too many closing parentheses 
-      //      check the popped opening parenthesis against the closing parenthesis read from the string
-      //      if they do not match -- opening was { but closing was ], for example.
-      //         throw an exception, wrong kind of parenthesis were in the text (e.g. "asfa ( asdf } sadf")
-      // if the stack is not empty after all the characters have been handled
-      //   throw an exception since the string has more opening than closing parentheses.
+   public static int checkParentheses(StackInterface<Character> stack, String fromString) throws ParenthesesException {
+       if (stack == null) {
+           throw new IllegalArgumentException("Stack cannot be null");
+       }
+
+       int parenthesesCount = 0;
+
+       for (char ch : fromString.toCharArray()) {
+           switch (ch) {
+               case '(':
+               case '[':
+               case '{':
+                   try {
+                       stack.push(ch);
+                   } catch (Exception e) {
+                       throw new ParenthesesException("Stack allocation or reallocation failed", ParenthesesException.STACK_FAILURE);
+                   }
+                   parenthesesCount++;
+                   break;
+               case ')':
+               case ']':
+               case '}':
+                   try {
+                       Character last = stack.pop();
+                       if (last == null) {
+                           throw new ParenthesesException("Too many closing parentheses", ParenthesesException.TOO_MANY_CLOSING_PARENTHESES);
+                       }
+                       if (!isMatchingPair(last, ch)) {
+                           throw new ParenthesesException("Mismatched parentheses", ParenthesesException.PARENTHESES_IN_WRONG_ORDER);
+                       }
+                   } catch (Exception e) {
+                       throw new ParenthesesException("Stack operation failed", ParenthesesException.STACK_FAILURE);
+                   }
+                   parenthesesCount++;
+                   break;
+               default:
+                   // Ignore non-parenthesis characters
+                   break;
+           }
+       }
+
+       if (!stack.isEmpty()) {
+           throw new ParenthesesException("Too few closing parentheses", ParenthesesException.TOO_FEW_CLOSING_PARENTHESES);
+       }
+
+       return parenthesesCount;
    }
+    private static boolean isMatchingPair(char open, char close) {
+        return (open == '(' && close == ')') ||
+                (open == '[' && close == ']') ||
+                (open == '{' && close == '}');
+    }
 }
