@@ -11,3 +11,4 @@ public class QueueIsEmptyException extends RuntimeException {
       super(message);
    }
 }
+ 
