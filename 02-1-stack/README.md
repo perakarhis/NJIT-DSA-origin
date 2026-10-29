@@ -30,7 +30,7 @@ An overview of the classes in this exercise is shown in the UML class diagram be
 
 > If you want to, you may crete your own main app file, for example in `src/main/java/oy/tol/tra/Main.java`, where you may implement your own main() method to experiment your stack implementation. However, the main goal of the exercise is to pass all the unit tests. Do not implement main() method to data structure classes or test classes!
 
-![UML class diagram](classes.png)
+![UML class diagram](02-stack.png)
 
 You should **implement** the interface `StackInterface` in the `StackImplementation.java` which is already created for you and located in this project's `src/main/java/oy/tol/tra/` directory!
 
