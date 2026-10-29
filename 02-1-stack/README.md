@@ -26,7 +26,7 @@ You have all the tools installed and working. This was tested in the `00-init` e
 
 ## Instructions
 
-An overview of the classes in this exercise is shown in the UML class diagram below. Note that in this task, you only work with the `StackImplementation` class. The class `ParenthesisTChecker.java` and `StackFactory.createCharacterStack()` are not needed until you start working with the additional tasks.
+An overview of the classes in this exercise is shown in the UML class diagram below.
 
 > If you want to, you may crete your own main app file, for example in `src/main/java/oy/tol/tra/Main.java`, where you may implement your own main() method to experiment your stack implementation. However, the main goal of the exercise is to pass all the unit tests. Do not implement main() method to data structure classes or test classes!
 
@@ -43,7 +43,7 @@ So the stack is a generic (template) class.
 
 Make sure to **read** the `StackInterface` documentation (the comments in the code) **carefully** so that your implementation follows the interface documentation. Obviously you need to know how stacks work in general, so **check out** the course lectures and other material on stack data structures.
 
-In this exercise, you use the Java plain array as the internal data structure for holding the elements:
+In this exercise, you use the Java plain array as the underlying data structure for holding the elements:
 
 ```Java
 private Object [] itemArray;
@@ -104,7 +104,7 @@ Study the *test code* that finds the issue and see *how* it uses your data struc
 
 The reason for the failure may have happened *earlier*. Various methods change the state of your object, and if one state change failed, it may cause problems later when some other method is called and the state of the object is now corrupt.
 
-So, what to do: put **breakpoints** either to the test code or to your code, before the place where the test failed. Then **debug** the tests. See demo videos in Moodle to see how this is done. Then when the code execution hits the breakpoint, *carefully* check what is the state of the object being tested. Is it correct? Should you see the things in the stack internal array that you are seeing? 
+So, what to do: put **breakpoints** either to the test code or to your code, before the place where the test failed. Then **debug** the tests. Then, when the code execution hits the breakpoint, *carefully* check what is the state of the object being tested. Is it correct? Should you see the things in the stack internal array that you are seeing? 
 
 For example, if the test code added three items to the data structure before the breakpoint, are those three items in the internal array? Are they in correct order? Are the other member variables in the class as they should be, when three objects are in the array?
 
